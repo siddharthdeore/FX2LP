@@ -137,7 +137,7 @@ public:
                 continue;
 
             case 0x01:
-                std::cout << "Firmware upladed to ram" << std::endl;
+                std::cout << "Firmware uploaded to device RAM" << std::endl;
                 continue;
 
             case 0x02:

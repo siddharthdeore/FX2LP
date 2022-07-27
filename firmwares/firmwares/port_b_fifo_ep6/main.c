@@ -6,14 +6,16 @@
 //! Initialize cpu clock, fifo and bulk-in end point 6
 static void initialize(void)
 {
+    // Set DYN_OUT and ENH_PKT bits, as recommended by the TRM.
+    REVCTL = bmNOAUTOARM | bmSKIPCOMMIT; // REVCTL = 0x03;
+    
     // CPUCS = 0x10; // 48 MHz, CLKOUT output disabled.
     // SYNCDELAY4; // Internal IFCLK, 48MHz; A,B as normal ports.
     //  Slave FIFO, sync mode, 48MHz clock
     IFCONFIG = bmIFCFGMASK | bmIFCLKSRC | bmIFCLKOE | bmIFCLKPOL | bm3048MHZ;
     SYNCDELAY4;
 
-    // Set DYN_OUT and ENH_PKT bits, as recommended by the TRM.
-    REVCTL = bmNOAUTOARM | bmSKIPCOMMIT; // REVCTL = 0x03;
+	SETCPUFREQ(CLK_48M);
     SYNCDELAY4;
 
     /*
