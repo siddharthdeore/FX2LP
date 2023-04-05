@@ -45,23 +45,19 @@ void main(void)
     // set PORT-B to input
     OEB = 0x0;
     SYNCDELAY4;
-    short k = 0;
-    short h = 1;
+    // set PORT-D to input
+    OED = 0x0;
+    SYNCDELAY4;
     for (;;)
     {
         // Wait for the EP6 buffer to become non-full.
         if (!(EP2468STAT & bmEP6FULL))
         {
-
-            for (int i = 0; i < 256; i++)
+            // alternatively fill buffer with port b and d
+            for (int i = 0; i < 512; i += 2)
             {
-                EP6FIFOBUF[i] = 1 << k; // Should be IOA for port a inputs but i'm testing it for now!!!
-                EP6FIFOBUF[i + 255] = 1 << k;
-                k = k + h;
-                if (k > 5 || k < 1)
-                {
-                    h = h * -1;
-                }
+                EP6FIFOBUF[i] = IOB;
+                EP6FIFOBUF[i + 1] = IOD;
             }
 
             // Arm the endpoint. Be sure to set BCH before BCL because BCL access

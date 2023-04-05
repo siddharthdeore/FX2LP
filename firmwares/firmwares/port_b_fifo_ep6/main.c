@@ -47,8 +47,6 @@ void main(void)
     // set PORT-B to input
     OEB = 0x0;
     SYNCDELAY4;
-    short k = 0;
-    short h = 1;
     for (;;)
     {
         // Wait for the EP6 buffer to become non-full.
